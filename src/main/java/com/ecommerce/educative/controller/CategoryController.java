@@ -1,12 +1,14 @@
 package com.ecommerce.educative.controller;
 
+import com.ecommerce.educative.common.ApiResponse;
 import com.ecommerce.educative.model.Category;
 import com.ecommerce.educative.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -15,9 +17,24 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @GetMapping("/list")
+    public ResponseEntity<List<Category>> getCategories() {
+        List<Category> categories = categoryService.listCategory();
+        return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
+    }
+
     @PostMapping("/create")
-    public String createCategory(@RequestBody Category category) {
+    public ResponseEntity<ApiResponse> createCategory(@RequestBody Category category) {
         categoryService.createCategory(category);
-        return "success";
+        return new ResponseEntity<>(new ApiResponse(true, "create a new category"), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update{categoryId}")
+    public ResponseEntity<ApiResponse> updateCategory(@PathVariable("categoryId") int categoryId, @RequestBody Category category) {
+        if (categoryService.findById(categoryId)) {
+            return new ResponseEntity<>(new ApiResponse(false, "category does not exist"), HttpStatus.NOT_FOUND);
+        }
+        categoryService.updateCategory(categoryId, category);
+        return new ResponseEntity<>(new ApiResponse(true, "category has been updated"), HttpStatus.OK);
     }
 }
