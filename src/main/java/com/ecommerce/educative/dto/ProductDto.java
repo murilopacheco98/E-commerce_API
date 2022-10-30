@@ -11,6 +11,18 @@ public class ProductDto {
     private @NotBlank String description;
     private @NotBlank Integer categoryId;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     public String getName() {
         return name;
     }
@@ -21,10 +33,6 @@ public class ProductDto {
 
     public String getImageURL() {
         return imageURL;
-    }
-
-    public void setImageUrl(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public Double getPrice() {
