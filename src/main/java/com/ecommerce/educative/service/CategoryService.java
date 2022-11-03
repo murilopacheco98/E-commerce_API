@@ -4,14 +4,15 @@ import com.ecommerce.educative.model.Category;
 import com.ecommerce.educative.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 public class CategoryService {
-
     @Autowired
-    CategoryRepository categoryRepo;
+     private CategoryRepository categoryRepo;
 
     public void createCategory(Category category) {
         categoryRepo.save(category);
@@ -21,7 +22,7 @@ public class CategoryService {
         return categoryRepo.findAll();
     }
 
-    public void updateCategory(int categoryId, Category updateCategory) {
+    public void updateCategory(long categoryId, Category updateCategory) {
         Category category = categoryRepo.getReferenceById(categoryId);
         category.setCategoryName(updateCategory.getCategoryName());
         category.setDescription(updateCategory.getDescription());
@@ -29,7 +30,7 @@ public class CategoryService {
         categoryRepo.save(category);
     }
 
-    public boolean findById(int categoryId) {
+    public boolean findById(long categoryId) {
         return categoryRepo.findById(categoryId).isPresent();
     }
 }

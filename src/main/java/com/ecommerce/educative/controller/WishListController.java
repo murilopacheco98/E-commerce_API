@@ -1,6 +1,7 @@
 package com.ecommerce.educative.controller;
 
 import com.ecommerce.educative.common.ApiResponse;
+import com.ecommerce.educative.dto.ProductDto;
 import com.ecommerce.educative.model.Product;
 import com.ecommerce.educative.model.User;
 import com.ecommerce.educative.model.WishList;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("wishlist")
@@ -33,4 +36,12 @@ public class WishListController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
+//    @GetMapping("/{token}")
+//    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token) {
+//        authenticationService.authenticate(token);
+//        User user = authenticationService.getUser(token);
+//
+//
+//        return wishListService.getwWishLishForUser(user);
+//    }
 }

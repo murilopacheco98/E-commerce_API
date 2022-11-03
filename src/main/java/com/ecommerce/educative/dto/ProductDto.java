@@ -9,7 +9,7 @@ public class ProductDto {
     private @NotBlank String imageURL;
     private @NotBlank Double price;
     private @NotBlank String description;
-    private @NotBlank Integer categoryId;
+    private @NotBlank Long categoryId;
 
     public Integer getId() {
         return id;
@@ -51,11 +51,11 @@ public class ProductDto {
         this.description = description;
     }
 
-    public Integer getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 }

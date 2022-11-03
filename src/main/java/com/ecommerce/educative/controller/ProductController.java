@@ -23,6 +23,7 @@ public class ProductController {
 
     @Autowired
     CategoryRepository categoryRepo;
+
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> createProduct(@RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryRepo.findById(productDto.getCategoryId());
