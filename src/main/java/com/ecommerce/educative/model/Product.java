@@ -9,11 +9,9 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name = "products")
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     private @NotBlank String name;
     private @NotBlank String imageURL;
     private @NotBlank double price;
