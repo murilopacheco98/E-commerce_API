@@ -36,12 +36,13 @@ public class WishListController {
         return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/{token}")
-//    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token) {
-//        authenticationService.authenticate(token);
-//        User user = authenticationService.getUser(token);
-//
-//
-//        return wishListService.getwWishLishForUser(user);
-//    }
+    @GetMapping("/{token}")
+    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token) {
+        authenticationService.authenticate(token);
+        User user = authenticationService.getUser(token);
+
+        List<ProductDto> productDtos = wishListService.getwWishLishForUser(user);
+
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
 }

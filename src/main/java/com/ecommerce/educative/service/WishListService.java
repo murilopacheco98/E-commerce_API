@@ -16,17 +16,21 @@ public class WishListService {
 
     @Autowired
     WishListRepository wishListRepository;
+    @Autowired
+    ProductService productService;
 
     public void createWishList(WishList wishList) {
         wishListRepository.save(wishList);
     }
 
-//    public ResponseEntity<List<ProductDto>> getwWishLishForUser(User user) {
-//        final List<WishList> wishLists = wishListRepository.findAllByUserOrderByCreatedAtDesc(user);
-//        List<ProductDto> productsDtos = new ArrayList<>();
-//
-//        for (WishList wishList : wishLists) {
-//            productsDtos
-//        }
-//    }
+    public List<ProductDto> getwWishLishForUser(User user) {
+        final List<WishList> wishLists = wishListRepository.findAllByUserOrderByCreatedAtDesc(user);
+        List<ProductDto> productsDtos = new ArrayList<>();
+
+        for (WishList wishList : wishLists) {
+            productsDtos.add(productService.getProductDto(wishList.getProduct()));
+        }
+
+        return productsDtos;
+    }
 }

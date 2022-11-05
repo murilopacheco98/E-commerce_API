@@ -22,7 +22,6 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     AuthenticationService authenticationService;
     public ResponseDto signUp(SignUpDto signUpDto) {
