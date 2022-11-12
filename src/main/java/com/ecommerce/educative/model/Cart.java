@@ -1,9 +1,17 @@
 package com.ecommerce.educative.model;
 
 import javax.persistence.*;
+
+import org.springframework.beans.factory.annotation.Value;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "cart")
 public class Cart {
 
@@ -22,48 +30,13 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private int quantity;
+    @Column(name = "quantity")
+    private Double quantity;
 
-    public Cart() {
-    }
+    @Column(name = "adress")
+    private String adress;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    @Column(name = "status")
+    @Value("${status:pending}")
+    private String status;
 }

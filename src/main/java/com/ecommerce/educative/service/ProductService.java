@@ -1,12 +1,11 @@
 package com.ecommerce.educative.service;
 
-import com.ecommerce.educative.Exceptions.ProductNotExistsException;
+import com.ecommerce.educative.Exceptions.NotFoundException;
 import com.ecommerce.educative.dto.ProductDto;
 import com.ecommerce.educative.model.Category;
 import com.ecommerce.educative.model.Product;
 import com.ecommerce.educative.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,8 +21,8 @@ public class ProductService {
     public void createProduct(ProductDto productDto, Category category) {
         Product product = new Product();
         product.setDescription(productDto.getDescription());
-        product.setImageURL(productDto.getImageURL());
-        product.setName(productDto.getName());
+        product.setImg(productDto.getImg());
+        product.setTitle(productDto.getTitle());
         product.setCategory(category);
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
@@ -32,13 +31,14 @@ public class ProductService {
     public ProductDto getProductDto(Product product) {
         ProductDto productDto = new ProductDto();
         productDto.setDescription(product.getDescription());
-        productDto.setName(product.getName());
-        productDto.setImageURL(product.getImageURL());
+        productDto.setTitle(product.getTitle());
+        productDto.setImg(product.getImg());
         productDto.setCategoryId(product.getCategory().getId());
         productDto.setPrice(product.getPrice());
         productDto.setId(product.getId());
         return productDto;
     }
+    
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
 
@@ -49,23 +49,23 @@ public class ProductService {
         return productDtos;
     }
 
-    public void updateProduct(ProductDto productDto, Integer productId) throws Exception {
+    public void updateProduct(ProductDto productDto, Long productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
         if (!optionalProduct.isPresent()) {
-            throw new Exception("product not present");
+            throw new NotFoundException("product not present");
         }
         Product product = optionalProduct.get();
         product.setDescription(productDto.getDescription());
-        product.setImageURL(productDto.getImageURL());
-        product.setName(productDto.getName());
+        product.setImg(productDto.getImg());
+        product.setTitle(productDto.getTitle());
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
     }
 
-    public Product findById(Long productId) throws ProductNotExistsException {
-        Optional<Product> optionalProduct = productRepository.findById(Math.toIntExact(productId));
+    public Product findById(Long productId) throws NotFoundException {
+        Optional<Product> optionalProduct = productRepository.findById((productId));
         if (!optionalProduct.isPresent()) {
-            throw new ProductNotExistsException("product is invalid" + productId);
+            throw new NotFoundException("product is invalid" + productId);
         }
         return optionalProduct.get();
     }

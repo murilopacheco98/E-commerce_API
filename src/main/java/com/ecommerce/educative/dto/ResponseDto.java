@@ -1,27 +1,14 @@
 package com.ecommerce.educative.dto;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class ResponseDto {
+    public ResponseDto(String string, String string2) {
+  }
     private String status;
     private String message;
 
-    public ResponseDto(String status, String message) {
-        this.status = status;
-        this.message = message;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

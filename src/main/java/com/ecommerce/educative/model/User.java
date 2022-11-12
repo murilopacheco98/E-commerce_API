@@ -1,99 +1,61 @@
 package com.ecommerce.educative.model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
-import java.util.Objects;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
 
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    public User(String firstName, String lastName, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable( 
+        name = "users_roles", 
+        joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id")}, 
+        inverseJoinColumns =
+            @JoinColumn(name = "role_id", referencedColumnName = "id")
+        ) 
+    private Set<Role> roles = new HashSet<>();
+
+    private String authenticationToken;
+
+    public User(String username, String email, String encryptedPassword) {
+        this.username = username;
         this.email = email;
-        this.password = password;
+        this.password = encryptedPassword;
+        this.createdAt = LocalDateTime.now();
     }
 
-    public User() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User that = (User) o;
-        return Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(password, that.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password);
-    }
-
-    @Override
-    public String toString() {
-        return "UserRepository{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
+    public User(String username, String email, String encryptedPassword, Set<Role> roles) {
+        this.username = username;
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        this.password = encryptedPassword;
+        this.createdAt = LocalDateTime.now();
+        this.roles = roles;
     }
 }

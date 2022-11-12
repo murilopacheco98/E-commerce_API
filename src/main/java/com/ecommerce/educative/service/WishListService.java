@@ -5,7 +5,6 @@ import com.ecommerce.educative.model.User;
 import com.ecommerce.educative.model.WishList;
 import com.ecommerce.educative.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -3,19 +3,41 @@ package com.ecommerce.educative.model;
 import com.ecommerce.educative.dto.ProductDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "products")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private @NotBlank String name;
-    private @NotBlank String imageURL;
+    private Long id;
+
+    @Column(name = "title")
+    private @NotBlank String title;
+
+    @Column(name = "img")
+    private @NotBlank String img;
+
+    @Column(name = "price")
     private @NotBlank double price;
+
+    @Column(name = "description")
     private @NotBlank String description;
+
+    @Column(name = "size")
+    private String size;
+
+    @Column(name = "color")
+    private String color;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -26,86 +48,16 @@ public class Product {
 //    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
 //    private List<WishList> wishListList;
 
-//    @JsonIgnore
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-//    private List<Cart> carts;
+   @JsonIgnore
+   @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+   private List<Cart> carts;
 
     public Product(ProductDto productDto, Category category) {
-        this.name = productDto.getName();
-        this.imageURL = productDto.getImageURL();
+        this.title = productDto.getTitle();
+        this.img = productDto.getImg();
         this.description = productDto.getDescription();
         this.price = productDto.getPrice();
         this.category = category;
     }
-
-    public Product(String name, String imageURL, double price, String description, Category category) {
-        super();
-        this.name = name;
-        this.imageURL = imageURL;
-        this.price = price;
-        this.description = description;
-        this.category = category;
-    }
-
-    public Product() {
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", imageURL='" + imageURL + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                '}';
-    }
+    
 }

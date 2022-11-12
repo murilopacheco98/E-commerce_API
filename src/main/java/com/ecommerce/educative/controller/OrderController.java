@@ -2,7 +2,6 @@ package com.ecommerce.educative.controller;
 
 import com.ecommerce.educative.dto.checkout.CheckoutItemDto;
 import com.ecommerce.educative.dto.checkout.StripeResponse;
-import com.ecommerce.educative.service.AuthenticationService;
 import com.ecommerce.educative.service.OrderService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.checkout.Session;
@@ -20,8 +19,8 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
 
-    @Autowired
-    private AuthenticationService authenticationService;
+    // @Autowired
+    // private AuthenticationService authenticationService;
 
     @Autowired
     private OrderService orderService;

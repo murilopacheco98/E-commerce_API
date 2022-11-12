@@ -1,17 +1,24 @@
 package com.ecommerce.educative.model;
 
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.UUID;
 
+@Data
 @Entity
+@NoArgsConstructor
 @Table(name = "tokens")
 public class AuthenticationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
 
+    @Column(name = "token")
     private String token;
 
     @Column(name = "created_at")
@@ -20,10 +27,8 @@ public class AuthenticationToken {
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
-
-    public Integer getId() {
-        return id;
-    }
+    // @OneToOne(mappedBy = "user")
+    // private User user;
 
     public AuthenticationToken(User user) {
         this.user = user;
@@ -31,34 +36,4 @@ public class AuthenticationToken {
         this.token = UUID.randomUUID().toString();
     }
 
-    public AuthenticationToken() {
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }

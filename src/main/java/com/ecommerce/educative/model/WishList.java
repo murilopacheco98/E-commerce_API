@@ -1,14 +1,23 @@
 package com.ecommerce.educative.model;
 
 import javax.persistence.*;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "wishlist")
 public class WishList {
+    public WishList(User user2, Product product2) {
+  }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -20,52 +29,5 @@ public class WishList {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public WishList() {
-    }
-
-    public WishList(User user, Product product) {
-        this.user = user;
-        this.product = product;
-        this.createdAt = new Date();
-    }
-
-    public WishList(Integer id, User user, Date createdAt, Product product) {
-        this.id = id;
-        this.user = user;
-        this.createdAt = createdAt;
-        this.product = product;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+    
 }
