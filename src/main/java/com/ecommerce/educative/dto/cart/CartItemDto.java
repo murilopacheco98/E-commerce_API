@@ -1,7 +1,7 @@
 package com.ecommerce.educative.dto.cart;
 
-import com.ecommerce.educative.model.Cart;
-import com.ecommerce.educative.model.Product;
+import com.ecommerce.educative.model.cart.Cart;
+import com.ecommerce.educative.model.product.Product;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

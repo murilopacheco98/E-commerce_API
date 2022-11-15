@@ -13,4 +13,5 @@ public class EducativeApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(EducativeApplication.class, args);
 	}
+
 }

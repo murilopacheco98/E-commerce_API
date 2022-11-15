@@ -1,14 +1,13 @@
 package com.ecommerce.educative.repository;
 
-import com.ecommerce.educative.model.User;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.ecommerce.educative.model.user.UserEntity;
+
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    User findByEmail(String email);
-
-    User findByUsername(String username);
+    UserEntity findByEmail(String email);
+    UserEntity findByUsername(String username);
 }

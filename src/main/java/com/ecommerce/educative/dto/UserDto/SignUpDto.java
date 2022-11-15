@@ -2,8 +2,6 @@ package com.ecommerce.educative.dto.UserDto;
 
 import java.util.List;
 
-import com.ecommerce.educative.model.Role;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,7 @@ public class SignUpDto {
     private String username;
     private String email;
     private String password;
-    private List<Role> roles;
+    private List<Long> rolesId;
 
     public SignUpDto( String username, String email, String password) {
         // this.id = id;
@@ -23,10 +21,10 @@ public class SignUpDto {
         this.password = password;
     }
 
-    public SignUpDto(String username, String email, String password, List<Role> roles) {
+    public SignUpDto(String username, String email, String password, List<Long> rolesId) {
         this.username = username;
         this.email = email;
         this.password = password;
-        roles.forEach(role -> this.roles.add(new Role(role)));
+        rolesId.forEach(role -> this.rolesId.add(role));
     }
 }
